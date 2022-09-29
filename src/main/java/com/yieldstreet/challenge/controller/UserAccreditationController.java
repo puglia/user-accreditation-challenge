@@ -1,6 +1,8 @@
 package com.yieldstreet.challenge.controller;
 
 
+import static com.yieldstreet.challenge.util.ResponseFactory.ok;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -11,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yieldstreet.challenge.model.UserAccreditationRequest;
-import com.yieldstreet.challenge.model.UserAccreditationResponse;
+import com.yieldstreet.challenge.exchange.UserAccreditationRequest;
+import com.yieldstreet.challenge.exchange.UserAccreditationResponse;
 import com.yieldstreet.challenge.service.UserAccreditationService;
-import static com.yieldstreet.home.challenge.util.ResponseFactory.ok;
 
 @RestController
 @RequestMapping("/user")
