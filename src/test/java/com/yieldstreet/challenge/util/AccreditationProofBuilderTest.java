@@ -9,7 +9,7 @@ import com.yieldstreet.challenge.model.AccreditationType;
 class AccreditationProofBuilderTest {
 
 	@Test
-	public void generateDocument() {
+	void generateDocument() {
 		String name = "2019.pdf";
 		String mimeType = "application/pdf";
 		String content = "xxxxxxxx";

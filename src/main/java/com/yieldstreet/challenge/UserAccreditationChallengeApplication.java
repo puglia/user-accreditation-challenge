@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class UserAccreditationChallengeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UserAccreditationChallengeApplication.class, args);
+		SpringApplication.run(UserAccreditationChallengeApplication.class);
 	}
 
 }

@@ -16,20 +16,20 @@ import com.yieldstreet.challenge.exchange.ErrorResponse;
 @RestControllerAdvice
 public class ErrorHandlingAdvice extends ResponseEntityExceptionHandler {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private Logger errorLogger = LoggerFactory.getLogger(this.getClass());
 	public static final String BAD_REQUEST = "Bad Request";
 	public static final String INTERNAL_SERVER_ERROR = "Internal Server Error";
 
 	@ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })
 	protected ResponseEntity<Object> handleBadRequest(Exception ex) {
-		logger.error(ex.getMessage(),ex);
+		errorLogger.error(ex.getMessage(),ex);
 		ErrorResponse response = new ErrorResponse(ex.getMessage(),new Date(),BAD_REQUEST);
 		return badRequest(response);
 	}
 	
 	@ExceptionHandler(value = { Throwable.class })
 	protected ResponseEntity<Object> handleInternalError(Throwable ex) {
-		logger.error(ex.getMessage(),ex);
+		errorLogger.error(ex.getMessage(),ex);
 		ErrorResponse response = new ErrorResponse(ex.getMessage(),new Date(),INTERNAL_SERVER_ERROR);
 		return badRequest(response);
 	}

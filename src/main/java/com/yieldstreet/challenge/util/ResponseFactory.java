@@ -5,6 +5,10 @@ import org.springframework.http.ResponseEntity;
 
 public class ResponseFactory {
 	
+	private ResponseFactory() {
+		super();
+	}
+	
 	public static ResponseEntity<Object> serverError(Object entity) {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(entity);
 	}

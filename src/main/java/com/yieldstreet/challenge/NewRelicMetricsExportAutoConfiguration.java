@@ -1,15 +1,9 @@
 package com.yieldstreet.challenge;
 
-import com.newrelic.telemetry.Attributes;
-import io.micrometer.core.instrument.config.MeterFilter;
-import io.micrometer.core.instrument.util.NamedThreadFactory;
-import com.newrelic.telemetry.micrometer.NewRelicRegistry;
-import com.newrelic.telemetry.micrometer.NewRelicRegistryConfig;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Duration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
@@ -19,6 +13,13 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+
+import com.newrelic.telemetry.Attributes;
+import com.newrelic.telemetry.micrometer.NewRelicRegistry;
+import com.newrelic.telemetry.micrometer.NewRelicRegistryConfig;
+
+import io.micrometer.core.instrument.config.MeterFilter;
+import io.micrometer.core.instrument.util.NamedThreadFactory;
 
 @Configuration
 @AutoConfigureBefore({ CompositeMeterRegistryAutoConfiguration.class, SimpleMetricsExportAutoConfiguration.class })
@@ -30,11 +31,8 @@ public class NewRelicMetricsExportAutoConfiguration {
 	public static final String SERVICE_NAME_PROPERTY = "application.new-relic.service-name";
 	public static final String STEP_DURATION_PROPERTY = "application.new-relic.step-duration";
 	
-	@Autowired
-	private Environment env;
-
 	@Bean
-	public NewRelicRegistryConfig newRelicConfig() {
+	public NewRelicRegistryConfig newRelicConfig(Environment env) {
 		return new NewRelicRegistryConfig() {
 			@Override
 			public String get(String key) {

@@ -1,6 +1,8 @@
 package com.yieldstreet.challenge.service;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.Base64;
 
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,7 @@ import com.yieldstreet.challenge.model.Document;
 @Service
 public class UserAccreditationService {
 	
-	private final String[] ACCEPTED_MIME_TYPES = {"application/pdf","image/png","image/jpeg","image/jpg"};
+	protected static final String[] ACCEPTED_MIME_TYPES = {"application/pdf","image/png","image/jpeg","image/jpg"};
 
 	
 	public boolean verify(AccreditationProof proof, String user) {
@@ -20,9 +22,11 @@ public class UserAccreditationService {
 		
 		for(Document doc: proof.getDocuments()) {
 			checkMimeType(doc);
+			checkContent(doc.getContent());
 		}
+		SecureRandom random = new SecureRandom(); 
 		
-		return Math.random() >= 0.5;
+		return random.nextInt()% 2 == 0;
 		
 	}
 	
@@ -31,6 +35,10 @@ public class UserAccreditationService {
 		if(doc.getMimeType() == null || doc.getMimeType().isEmpty() ||
 				!Arrays.asList(ACCEPTED_MIME_TYPES).contains(doc.getMimeType()))
 			throw new IllegalArgumentException("File extension not accepted. Accepted files include: pdf, jpg and png");
+	}
+	
+	private void checkContent(String content) {
+		Base64.getDecoder().decode(content);
 	}
 	
 	

@@ -25,4 +25,7 @@ public class AccreditationProof {
 		this.documents = documents;
 	}
 
+	public String toString() {
+		return  "accreditationType: " + this.accreditationType;
+	}
 }

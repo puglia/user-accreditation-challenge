@@ -11,28 +11,28 @@ class ResponseFactoryTest {
 
 
 	@Test
-	public void generateSuccess() {
+	void generateSuccess() {
 		ResponseEntity<Object> response = ResponseFactory.ok(payload);
 		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
 		Assertions.assertEquals(payload, response.getBody());
 	}
 
 	@Test
-	public void generateBadRequest() {
+	void generateBadRequest() {
 		ResponseEntity<Object> response = ResponseFactory.badRequest(payload);
 		Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 		Assertions.assertEquals(payload, response.getBody());
 	}
 	
 	@Test
-	public void generateNotFound() {
+	void generateNotFound() {
 		ResponseEntity<Object> response = ResponseFactory.notFound(payload);
 		Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 		Assertions.assertEquals(payload, response.getBody());
 	}
 	
 	@Test
-	public void generateServerError() {
+	void generateServerError() {
 		ResponseEntity<Object> response = ResponseFactory.serverError(payload);
 		Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
 		Assertions.assertEquals(payload, response.getBody());

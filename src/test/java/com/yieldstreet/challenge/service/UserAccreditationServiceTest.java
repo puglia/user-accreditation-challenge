@@ -26,7 +26,7 @@ class UserAccreditationServiceTest {
 				.addDocument(new DocumentBuilder().setName("2018.pdf").setMimeType("application/pdf")
 						.setContent("ICAiQC8qIjogWyJzcmMvKiJdCiAgICB9CiAgfQp9Cg==").build())
 				.addDocument(new DocumentBuilder().setName("2019.pdf").setMimeType("image/jpeg")
-						.setContent("91cy1wcm9taXNlICJeMi4wLjUiCiAgICB0b3Bvc29ydCAiXjIuMC4yIgo=").build())
+						.setContent("Y2hhbGxlbmdlLXlpZWxkc3RyZWV0LWVuYw==").build())
 				.build();
 		request = new UserAccreditationRequest();
 		request.setUserId("g8NlYJnk7zK9BlB1J2Ebjs0AkhCTpE1V");
@@ -34,23 +34,36 @@ class UserAccreditationServiceTest {
 	}
 
 	@Test
-	public void checkValidInput() {
+	void checkValidInput() {
 		Assertions.assertDoesNotThrow(() -> userAccreditationService.verify(request.getPayload(), request.getUserId()));
 	}
 
 	@Test
-	public void checkInvalidMimeType() {
-		request.getPayload().getDocuments().add(
-				new DocumentBuilder().setName("2017.json").setMimeType("application/json").setContent("{}").build());
+	void checkInvalidMimeType() {
+		request.getPayload().getDocuments().add(new DocumentBuilder().setName("2017.json")
+				.setMimeType("application/json").setContent("eyJuYW1lIjoidGVzdCJ9").build());
+		AccreditationProof accreditation = request.getPayload();
+		String userId = request.getUserId();
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> userAccreditationService.verify(request.getPayload(), request.getUserId()));
+				() -> userAccreditationService.verify(accreditation, userId));
 	}
-	
+
 	@Test
-	public void checkEmptyUser() {
+	void checkEmptyUser() {
 		request.setUserId(null);
-		Boolean accredited = Assertions.assertDoesNotThrow(() -> userAccreditationService.verify(request.getPayload(), request.getUserId()));
+		Boolean accredited = Assertions
+				.assertDoesNotThrow(() -> userAccreditationService.verify(request.getPayload(), request.getUserId()));
 		Assertions.assertFalse(accredited);
 	}
-	
+
+	@Test
+	void checkInvalidContent() {
+		request.getPayload().getDocuments().add(
+				new DocumentBuilder().setName("2017.jpg").setMimeType("image/jpeg").setContent("plain-text").build());
+		AccreditationProof accreditation = request.getPayload();
+		String userId = request.getUserId();
+		Assertions.assertThrows(IllegalArgumentException.class,
+				() -> userAccreditationService.verify(accreditation, userId));
+	}
+
 }

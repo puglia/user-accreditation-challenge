@@ -49,7 +49,7 @@ class UserAccreditationControllerTest {
 	}
 
 	@Test
-	public void checkValidInput() {
+	void checkValidInput() {
 		
 		when(userAccreditationService.verify(request.getPayload(),request.getUserId()))
 			.thenReturn(true);
@@ -61,7 +61,7 @@ class UserAccreditationControllerTest {
 	}
 	
 	@Test
-	public void checkInvalidInput() {
+	void checkInvalidInput() {
 		request.getPayload().getDocuments().add(new DocumentBuilder()
 											.setName("2017.json")
 											.setMimeType("application/json")

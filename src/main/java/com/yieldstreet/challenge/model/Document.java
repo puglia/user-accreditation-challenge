@@ -29,4 +29,8 @@ public class Document {
 		this.content = content;
 	}
 
+	public String toString() {
+		return "name: " + this.name + ", mimeType: " + this.mimeType + ", content: " + this.content;
+	}
+
 }

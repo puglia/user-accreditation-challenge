@@ -8,7 +8,7 @@ import com.yieldstreet.challenge.model.Document;
 class DocumentBuilderTest {
 
 	@Test
-	public void generateDocument() {
+	void generateDocument() {
 		String name = "2019.pdf";
 		String mimeType = "application/pdf";
 		String content = "xxxxxxxx";
