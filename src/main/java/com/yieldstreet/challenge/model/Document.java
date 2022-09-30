@@ -28,9 +28,5 @@ public class Document {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	public String toString() {
-		return "name: " + this.name + ", mimeType: " + this.mimeType + ", content: " + this.content;
-	}
 
 }

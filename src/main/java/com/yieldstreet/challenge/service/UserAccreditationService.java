@@ -1,7 +1,5 @@
 package com.yieldstreet.challenge.service;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Arrays;
 
 import org.springframework.stereotype.Service;
@@ -15,8 +13,9 @@ public class UserAccreditationService {
 	private final String[] ACCEPTED_MIME_TYPES = {"application/pdf","image/png","image/jpeg","image/jpg"};
 
 	
-	public boolean verify(AccreditationProof proof, String user) throws FileNotFoundException, IOException {
-		if(proof.getDocuments() == null || proof.getDocuments().isEmpty())
+	public boolean verify(AccreditationProof proof, String user) {
+		if(proof.getDocuments() == null || proof.getDocuments().isEmpty()
+				|| "".equals(user) || user == null )
 			return false;
 		
 		for(Document doc: proof.getDocuments()) {

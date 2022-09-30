@@ -3,9 +3,6 @@ package com.yieldstreet.challenge.controller;
 
 import static com.yieldstreet.challenge.util.ResponseFactory.ok;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,10 +22,10 @@ public class UserAccreditationController {
 	UserAccreditationService userAccreditationService;
 
 	@PostMapping("/accreditation")
-	public ResponseEntity<Object> validate(@RequestBody UserAccreditationRequest req) throws FileNotFoundException, IOException {
+	public ResponseEntity<Object> validate(@RequestBody UserAccreditationRequest req) {
 		
 		boolean accredited= userAccreditationService.verify(req.getPayload(), req.getUserId());
 		
-		return ok(new UserAccreditationResponse(accredited,true));
+		return ok(new UserAccreditationResponse(true,accredited));
 	}
 }
